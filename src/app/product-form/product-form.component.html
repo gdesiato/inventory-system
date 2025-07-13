@@ -1,0 +1,9 @@
+<div class="form-container">
+    <h2 *ngIf="id; else addMode">Edit Product (ID: {{ id }})</h2>
+    <ng-template #addMode>
+      <h2>Add New Product</h2>
+    </ng-template>
+  
+    <p>Product Form goes here...</p>
+  </div>
+  
