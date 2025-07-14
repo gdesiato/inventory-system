@@ -1,9 +1,44 @@
 <div class="form-container">
-    <h2 *ngIf="id; else addMode">Edit Product (ID: {{ id }})</h2>
-    <ng-template #addMode>
-      <h2>Add New Product</h2>
-    </ng-template>
-  
-    <p>Product Form goes here...</p>
-  </div>
+  <h2>{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="save()">
+    <div>
+      <label>Name:</label>
+      <input type="text" formControlName="name" required>
+      <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+        Name is required.
+      </div>
+    </div>
+
+    <div>
+      <label>Description:</label>
+      <input type="text" formControlName="description">
+    </div>
+
+    <div>
+      <label>Price:</label>
+      <input type="number" formControlName="price" required>
+      <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+        Price must be ≥ 0.
+      </div>
+    </div>
+
+    <div>
+      <label>Quantity:</label>
+      <input type="number" formControlName="quantity" required>
+      <div *ngIf="productForm.get('quantity')?.invalid && productForm.get('quantity')?.touched">
+        Quantity must be ≥ 0.
+      </div>
+    </div>
+
+    <div>
+      <label>Category:</label>
+      <input type="text" formControlName="category">
+    </div>
+
+    <button type="submit" [disabled]="productForm.invalid">Save</button>
+    <button type="button" (click)="cancel()">Cancel</button>
+  </form>
+</div>
+
   
